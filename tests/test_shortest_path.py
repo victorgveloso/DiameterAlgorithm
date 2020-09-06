@@ -87,5 +87,7 @@ def test_shortest_path_undirected(undirected_floyd_warshall: FloydWarshall):
 
 
 def test_shortest_path_undirected_big_graph(undirected_big_floyd_warshall: FloydWarshall):
-    print()
-    print(undirected_big_floyd_warshall.d)
+    shortest_path = undirected_big_floyd_warshall.d
+    assert shortest_path.get(0, 4) == 40
+    assert shortest_path.get(3, 4) == 99
+    assert shortest_path.get(3, 2) == 130

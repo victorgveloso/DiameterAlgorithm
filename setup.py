@@ -10,6 +10,5 @@ setup(
     author='Victor Guerra Veloso',
     author_email='victorgvbh@gmail.com',
     description='',
-    install_requires=[],
-    extras_require={"dotenv": ["python-dotenv"]},
+    install_requires=[]
 )

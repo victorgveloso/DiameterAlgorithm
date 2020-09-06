@@ -58,10 +58,10 @@ class PredecessorsMatrices(Matrices):
                     self.set(i, j, k, None)
 
     def update_predecessors(self, i, j, k, matrices: ShortestPathMatrices):
-        if matrices.get(i, j, k - 1) <= (matrices.get(i, k, k - 1) + matrices.get(k, j, k - 1)):
+        if matrices.get(i, j, k - 1) <= (matrices.get(i, k - 1, k - 1) + matrices.get(k - 1, j, k - 1)):
             self.set(i, j, k, self.get(i, j, k - 1))
         else:
-            self.set(i, j, k, self.get(k, j, k - 1))
+            self.set(i, j, k, self.get(k - 1, j, k - 1))
 
 
 class FloydWarshall:
@@ -88,7 +88,7 @@ class FloydWarshall:
             for i in range(self.n):
                 for j in range(self.n):
                     self.pred.update_predecessors(i, j, k, self.d)
-                    dist_with_intermediate = self.d.get(i, k, k - 1) + self.d.get(k, j, k - 1)
+                    dist_with_intermediate = self.d.get(i, k - 1, k - 1) + self.d.get(k - 1, j, k - 1)
                     curr_dist = self.d.get(i, j, k - 1)
                     w = min(curr_dist, dist_with_intermediate)
                     self.d.set(i, j, k, w)

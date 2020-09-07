@@ -1,7 +1,7 @@
 import argparse
 import sys
 
-from diameter.algorithms.diameter import DiameterAlgorithm
+from .algorithms.diameter import DiameterAlgorithm
 
 
 def parse_cli_args():

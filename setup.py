@@ -1,9 +1,9 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name='DiameterAlgorithm',
     version='1.0.0',
-    packages=['diameter'],
+    packages=find_packages(include=['diameter', 'diameter.*']),
     package_dir={'': 'src'},
     url='',
     license='BSD-3-Clause',

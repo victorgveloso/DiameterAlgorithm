@@ -1,2 +1,2 @@
 #!/bin/bash
-pypy3 -m diameter $1 $2
+pypy3 -m diameter file $1 $2

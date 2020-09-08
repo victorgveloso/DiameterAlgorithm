@@ -22,13 +22,13 @@ class DiameterAlgorithm(FloydWarshall):
         self.store_shortest_path_to_output(*self.max)
 
     def update_max(self, i, j):
-        curr_max = self.d.get(self.max[0], self.max[1])
-        new_value = self.d.get(i, j)
+        curr_max = self.d.get_last(self.max[0], self.max[1])
+        new_value = self.d.get_last(i, j)
         if new_value != math.inf and new_value > curr_max:
             self.max = (i, j)
 
     def store_shortest_path_to_output(self, i, j):
-        pred = self.pred.get(i, j)
+        pred = self.pred.get_last(i, j)
         if i == j:
             self.output.append(i)
         elif pred is None:
@@ -38,7 +38,7 @@ class DiameterAlgorithm(FloydWarshall):
             self.output.append(j)
 
     def diameter_value(self) -> int:
-        return self.d.get(*self.max)
+        return self.d.get_last(*self.max)
 
     def diameter_vertices(self) -> Tuple[int, int]:
         return self.max[0] + 1, self.max[1] + 1

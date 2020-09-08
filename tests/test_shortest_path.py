@@ -60,15 +60,15 @@ def test_shortest_path_str(floyd_warshall: FloydWarshall):
 
 def test_shortest_path(floyd_warshall: FloydWarshall):
     shortest_path = floyd_warshall.d
-    assert shortest_path.get(0, shortest_path.n - 1) == 6
+    assert shortest_path.get_last(0, shortest_path.n - 1) == 6
 
 
 def test_predecessor(floyd_warshall: FloydWarshall):
-    assert floyd_warshall.pred.get(2, 3) == 2
-    assert floyd_warshall.pred.get(0, 3) == 2
-    assert floyd_warshall.pred.get(1, 2) == 1
-    assert floyd_warshall.pred.get(0, 2) == 1
-    assert floyd_warshall.pred.get(0, 1) == 0
+    assert floyd_warshall.pred.get_last(2, 3) == 2
+    assert floyd_warshall.pred.get_last(0, 3) == 2
+    assert floyd_warshall.pred.get_last(1, 2) == 1
+    assert floyd_warshall.pred.get_last(0, 2) == 1
+    assert floyd_warshall.pred.get_last(0, 1) == 0
 
 
 def test_shortest_path_undirected(undirected_floyd_warshall: FloydWarshall):
@@ -88,6 +88,6 @@ def test_shortest_path_undirected(undirected_floyd_warshall: FloydWarshall):
 
 def test_shortest_path_undirected_big_graph(undirected_big_floyd_warshall: FloydWarshall):
     shortest_path = undirected_big_floyd_warshall.d
-    assert shortest_path.get(0, 4) == 40
-    assert shortest_path.get(3, 4) == 99
-    assert shortest_path.get(3, 2) == 130
+    assert shortest_path.get_last(0, 4) == 40
+    assert shortest_path.get_last(3, 4) == 99
+    assert shortest_path.get_last(3, 2) == 130

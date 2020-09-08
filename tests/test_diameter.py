@@ -16,7 +16,7 @@ def algorithm():
 
 def test_max(algorithm: DiameterAlgorithm):
     assert algorithm.max == (0, 3)
-    assert algorithm.d.get(*algorithm.max) == 6
+    assert algorithm.d.get_last(*algorithm.max) == 6
 
 
 def test_diameter_value(algorithm: DiameterAlgorithm):

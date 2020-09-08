@@ -1,4 +1,7 @@
-import argparse, sys, os, traceback
+import argparse
+import os
+import sys
+import traceback
 
 from .algorithms.diameter import DiameterAlgorithm
 
@@ -19,43 +22,47 @@ def read_input_file(args):
     try:
         with open(args.input_file) as f:
             return f.read()
-    except Exception as er:
+    except Exception:
         traceback.print_exc()
         print("Could not read input file!")
         sys.exit(1)
 
 
-def parse_graph(args):
+def parse_graph(args, input_):
     try:
         return DiameterAlgorithm.from_str(input_, directed=args.directed)
-    except Exception as er:
+    except Exception:
         traceback.print_exc()
         print("Failure creating adjacency matrix from input file's content.")
         sys.exit(1)
 
 
-def start_algorithm():
+def start_algorithm(graph):
     try:
         graph.apply()
-    except Exception as er:
+    except Exception:
         traceback.print_exc()
         print("Could not execute algorithm on built structure.")
         sys.exit(1)
 
 
-def write_output_file(args):
+def write_output_file(args, graph):
     try:
         with open(args.output_file, 'w') as f:
-            f.write(graph.formatted_result()+os.linesep)
-    except Exception as er:
+            f.write(graph.formatted_result() + os.linesep)
+    except Exception:
         traceback.print_exc()
         print("Could not write to output file!")
         sys.exit(1)
 
 
-if __name__ == '__main__':
+def main():
     args = parse_cli_args()
     input_ = read_input_file(args)
-    graph = parse_graph(args)
-    start_algorithm()
-    write_output_file(args)
+    graph = parse_graph(args, input_)
+    start_algorithm(graph)
+    write_output_file(args, graph)
+
+
+if __name__ == '__main__':
+    main()

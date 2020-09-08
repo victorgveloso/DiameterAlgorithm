@@ -1,5 +1,4 @@
-import argparse
-import sys
+import argparse, sys, os, traceback
 
 from .algorithms.diameter import DiameterAlgorithm
 
@@ -21,7 +20,7 @@ def read_input_file(args):
         with open(args.input_file) as f:
             return f.read()
     except Exception as er:
-        print(er)
+        traceback.print_exc()
         print("Could not read input file!")
         sys.exit(1)
 
@@ -30,7 +29,7 @@ def parse_graph(args):
     try:
         return DiameterAlgorithm.from_str(input_, directed=args.directed)
     except Exception as er:
-        print(er)
+        traceback.print_exc()
         print("Failure creating adjacency matrix from input file's content.")
         sys.exit(1)
 
@@ -39,7 +38,7 @@ def start_algorithm():
     try:
         graph.apply()
     except Exception as er:
-        print(er)
+        traceback.print_exc()
         print("Could not execute algorithm on built structure.")
         sys.exit(1)
 
@@ -47,9 +46,9 @@ def start_algorithm():
 def write_output_file(args):
     try:
         with open(args.output_file, 'w') as f:
-            f.write(graph.formatted_result())
+            f.write(graph.formatted_result()+os.linesep)
     except Exception as er:
-        print(er)
+        traceback.print_exc()
         print("Could not write to output file!")
         sys.exit(1)
 

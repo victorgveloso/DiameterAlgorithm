@@ -23,6 +23,8 @@ class AdjacencyMatrix:
         n_vertices, m_edges = map(int, lines[0].split(" "))
         graph = cls(n_vertices, m_edges, directed=directed)
         for line in lines[1:]:
+            if line == '':
+                continue
             from_vertex, to_vertex, weight = map(int, line.split(' '))
             graph.place_edge(from_vertex - 1, to_vertex - 1, weight)
         return graph

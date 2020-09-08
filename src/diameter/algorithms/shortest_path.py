@@ -20,21 +20,25 @@ class Matrices:
             else:
                 return str(v)
 
-        return "\n".join("\t".join(map(formatted, i)) for i in self._next_matrix)
+        arr = (map(formatted, self._next_matrix[i:i + self.n]) for i in range(0, len(self._next_matrix), self.n))
+        return "\n".join(map('\t'.join, arr))
 
     def get_last(self, i, j) -> Union[int, float]:
-        return self._next_matrix[i][j]
+        return self._next_matrix[self._get_pos(i, j)]
+
+    def _get_pos(self, i, j):
+        return i * self.n + j
 
     def get(self, i, j, k) -> Union[int, float]:
-        return self._next_matrix[i][j] if k == self.last else self._prev_matrix[i][j]
+        pos = self._get_pos(i, j)
+        return self._next_matrix[pos] if k == self.last else self._prev_matrix[pos]
 
     def set(self, i, j, k, w):
         if k > self.last:
             self.last = k
             self._prev_matrix = self._next_matrix
-            self._next_matrix = [[self._default_value] * self.n for _ in range(self.n)]
-
-        self._next_matrix[i][j] = w
+            self._next_matrix = [self._default_value] * (self.n ** 2)
+        self._next_matrix[self._get_pos(i, j)] = w
 
 
 class ShortestPathMatrices(Matrices):

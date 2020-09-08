@@ -1,18 +1,17 @@
 import math
-from typing import Union, List, Optional
+from typing import Union, Optional
 
 from diameter.model.graph import AdjacencyMatrix
 
 
 class Matrices:
     def __init__(self, n, default_value=None):
+        self.last = -1
+        self._next_matrix = []
+        self._prev_matrix = []
+        self._default_value = default_value
+
         self.n = n
-        self._matrices: List[List[List[Union[int, float]]]] = []
-        for k in range(n):
-            matrix = []
-            for i in range(n):
-                matrix.append([default_value] * n)
-            self._matrices.append(matrix)
 
     def __str__(self):
         def formatted(v):
@@ -21,16 +20,21 @@ class Matrices:
             else:
                 return str(v)
 
-        return "\n".join("\t".join(map(formatted, i)) for i in self._matrices[-1])
+        return "\n".join("\t".join(map(formatted, i)) for i in self._next_matrix)
 
     def get_last(self, i, j) -> Union[int, float]:
-        return self._matrices[self.n - 1][i][j]
+        return self._next_matrix[i][j]
 
     def get(self, i, j, k) -> Union[int, float]:
-        return self._matrices[k][i][j]
+        return self._next_matrix[i][j] if k == self.last else self._prev_matrix[i][j]
 
     def set(self, i, j, k, w):
-        self._matrices[k][i][j] = w
+        if k > self.last:
+            self.last = k
+            self._prev_matrix = self._next_matrix
+            self._next_matrix = [[self._default_value] * self.n for _ in range(self.n)]
+
+        self._next_matrix[i][j] = w
 
 
 class ShortestPathMatrices(Matrices):

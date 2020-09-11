@@ -16,5 +16,13 @@ setup(
     author='Victor Guerra Veloso',
     author_email='victorgvbh@gmail.com',
     description='',
-    install_requires=[]
+    install_requires=[],
+    entry_points={
+        "setuptools.installation": [
+            "eggsecutable = diameter.__main__:main",
+        ],
+        "console_scripts": [
+            "diameter = diameter.__main__:main",
+        ]
+    }
 )

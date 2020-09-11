@@ -1,2 +1,2 @@
 #!/bin/bash
-pypy3 setup.py install --user
+pypy3 setup.py install
